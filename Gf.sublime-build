@@ -1,0 +1,13 @@
+{	"cmd": ["gf", "--run", "$file"],
+    "file_regex": "^([^:]+):([0-9]*):",
+    "selector": "source.gf",
+    "path": "/usr/local/bin",
+
+    "variants": [
+		{ "name": "From source",
+		 "cmd": ["gf", "--src", "$file"]}, 
+
+		{ "name": "Make pgf",
+		  "cmd": ["gf", "--make", "$file"]}
+    ]
+}
