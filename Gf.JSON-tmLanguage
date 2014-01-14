@@ -1,0 +1,161 @@
+{ "name": "Grammatical Framework",
+  "scopeName": "source.gf",
+  "fileTypes": ["gf"],
+  "patterns": [
+    { "include": "#comments" },
+    { "begin": "(abstract)",
+      "beginCaptures": {
+        "1": { "name": "keyword.other.gf" }
+      },
+      "end": "(=)",
+      "endCaptures": {
+          "1": { "name": "keyword.other.gf"}
+      },
+      "name": "meta.declaration.module.abstract",
+      "patterns": [
+        { "include": "#module_name" }
+      ]
+    },
+    { "begin": "(incomplete\\s+)?(concrete)",
+      "beginCaptures": {
+        "1": { "name": "keyword.other.gf" },
+        "2": { "name": "keyword.other.gf" }
+      },
+      "end": "(=)",
+      "endCaptures": {
+          "1": { "name": "keyword.operator"}
+      },
+      "name": "meta.declaration.module.concrete",
+      "patterns": [
+        { "include": "#module_name" },
+        { "match": "of", "name": "keyword.other.gf" }
+      ]
+    },
+    {  "begin": "^\\s*([A-z][A-z0-9_']*)\\s*(:)", 
+      "beginCaptures": {
+          "1": { "name": "entity.name.function.gf" }, 
+          "2": { "name": "keyword.other.colon.gf" }
+        }, 
+        "end": "(=|;)", 
+        "name": "meta.function.fun-declaration.gf", 
+        "patterns": [
+            {
+                "include": "#type_signature"
+            }
+        ]
+    }, 
+    { "begin": "(\\{)",
+      "beginCaptures": {
+          "0": { "name": "keyword.other" }
+      },
+      "end": "(\\})",
+      "endCaptures": {
+          "0": { "name": "keyword.other" }
+      },
+      "name": "meta.declaration.body",
+      "patterns": [
+        { "include": "#fun_judgement" },
+        { "include": "#flags_judgement" },
+        { "include": "#oper_judgement" },
+        { "include": "#lin_judgement" },
+        { "include": "#comments" }
+      ]
+    },
+    { "name": "keyword.abstract",
+      "match": "\\b(fun|cat|def)\\b"
+    },
+    { "name": "keyword.other",
+      "match": "\\b(flags|open|with|in)\\b"
+    },
+    { "name": "keyword.operator",
+      "match": "(=|\\*\\*|\\+\\+|\\+|->|:)"
+    },
+    {  "name": "string.quoted.double",
+       "match": "\".*\""
+    },
+    { "name": "variable.parameter",
+      "match": "(incomplete\\s+)?conxxcrete (\\w+) of (\\w+)",
+      "captures": {
+          "2": { "name": "entity.name" },
+          "3": { "name": "entity.name" }
+      }
+    }
+   ],
+   "repository": {
+      "module_name": {
+            "match": "[A-Z][A-z0-9._']*", 
+            "name": "entity.name.function"
+      },
+      "type_signature": {
+          "patterns": [
+              { "captures": {
+                    "1": { "name": "entity.other.module.gf" }, 
+                    "2": { "name": "support.type" }
+                }, 
+                "match": "([A-Z][A-Za-z]*\\.)?([A-z][A-z0-9_']*)", 
+                "name": "meta.class-constraint.haskell"
+              }, 
+              {
+                  "match": "->", 
+                  "name": "keyword.other.arrow.gf"
+              }, 
+              {
+                  "match": "\\b[A-z][A-Z0-9_']*\\b", 
+                  "name": "variable.other.type.gf"
+              }, 
+              {
+                  "include": "#comments"
+              }
+          ]
+      },
+  "fun_judgement": {
+      "match": "\\b(fun|data|def)\\s*$",
+      "name": "support.function.gf"
+    },
+  "flags_judgement": {
+      "match": "\\b(flags)\\s*$",
+      "name": "support.function.gf"
+    },
+  "oper_judgement": { 
+      "name": "support.function.gf",
+      "match": "\\b(oper)\\s*$"
+    },
+  "lin_judgement": { 
+      "name": "support.function.gf",
+      "match": "\\b(lin|lincat)\\b"
+    },
+  "definition": {
+      "name": "definition.single-line",
+      "match": "([A-z][A-z0-9_']*)(\\s+[A-z][A-z0-9_']*)*\\s*(=)",
+      "captures": {
+          "1": { "name": "entity.name.function" },
+          "2": { "name": "variable.parameter" },
+          "3": { "name": "keyword.operator"}
+      }      
+    },
+  "declaration": {
+      "name": "keyword.control.untitled",
+      "match": "^(\\s*fun)?\\s*([A-z][A-z0-9_', ]*)\\s*(:)",
+      "captures": {
+          "1": { "name": "support.function.gf"},
+          "2": { "name": "entity.name.function" },
+          "3": { "name": "keyword.operator" }
+      }
+    },
+  "comments": {
+    "patterns": [
+      { "begin": "\\{-",
+        "end": "-\\}",
+        "name": "comment.block"
+      },
+      { "match": "(--).*$\\n?",
+        "captures": {
+          "1": { "name": "punctuation.definition.comment" }
+        },
+        "name": "comment.line.double-dash"
+      }
+    ]
+   }
+  },
+  "uuid": "7900e51b-46bc-4777-abb8-32d7e0dbb486"
+}

@@ -1,0 +1,4 @@
+[
+	{"caption": "Open related GF modules", "command": "open_related_files", "args": {"files": []} },	
+	{"caption": "Open source module", "command": "open_source", "args": {"files": []} }
+]
