@@ -1,13 +1,13 @@
-#Support for Grammatical Framework in Sublime Text
+#Support for Grammatical Framework in Sublime Text 2
 
 * Syntax definitions for [GF language](http://www.grammaticalframework.org)
-* Build system (make `pgf` and buid from source)
+* Build system (_make pgf_ and _Build from source_)
 * Some commands to open related modules from a GF source (`.gf`)
 or compiled file (`.gfo`)
 
 
-##Manual install for Sublime Text 2
+##Manual install for Sublime Text
 
-Copy `GF` into `Packages` folder.
+Copy root folder as `GF` into `Packages` folder.
 This is `Users/USER/Library/Application Support/Sublime Text 2/Packages` in OS X.
 
