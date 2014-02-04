@@ -1,4 +1,5 @@
 [
 	{"caption": "Open related GF modules", "command": "open_related_files", "args": {"files": []} },	
-	{"caption": "Open source module", "command": "open_source", "args": {"files": []} }
+	{"caption": "Open source module", "command": "open_source", "args": {"files": []} },
+	{"caption": "Patch as", "command": "patch_file_as", "args": {"files": []}}
 ]

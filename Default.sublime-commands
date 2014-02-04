@@ -1,0 +1,4 @@
+[
+    { "caption": "GF: Patch files", "command": "gf_patch_files" },
+    { "caption": "GF: Dependencies", "command": "gf_show_dependencies" }
+]
