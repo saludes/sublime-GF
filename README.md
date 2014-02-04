@@ -4,6 +4,8 @@
 * Build system (_make pgf_ and _Build from source_)
 * Some commands to open related modules from a GF source (`.gf`)
 or compiled file (`.gfo`)
+* Create a patch to change source GF files in a directory by using a diff as a
+  model.
 
 
 ##Manual install for Sublime Text
