@@ -1,7 +1,31 @@
+from os.path import splitext
+
+def is_GF_source(path):
+	if not path: return False
+	ext = splitext(path)[1]
+	return ext in ('.gf', '.gfo') and ext[1:]
+
+def get_GF_source(path):
+	base, ext = splitext(path)
+	if ext == '.gfo':
+		return base + '.gf'
+	else:
+		raise TypeError, "Cannot find GF source for extension %s" % ext
+
+
+def find_related(path):
+	modName = get_abstract(path)
+	if not modName:
+		print "Not abstract, trying resources."
+		modName = get_resource(path)
+	print "Finding with module", modName, "for file", path
+	return find_files(lambda b:b.startswith(absModule), path)
+
 import re
 
 concreteRe = r'((incomplete\s+)?concrete) (\w+) of (\w+)'
 abstractRe = r'abstract\s+(\w+)'
+resourceWithRe = r'resource\s+(\w+)\s*=\s*(\w+)'
 resourceRe = r'resource\s+(\w+)'
 
 def get_header(path):
@@ -15,7 +39,7 @@ def get_header(path):
 		elif inComment and re.search(r'-\}', line):
 			inComment = False
 		else:
-			for r in (concreteRe, abstractRe, resourceRe):
+			for r in (concreteRe, abstractRe, resourceRe, resourceWithRe):
 				if re.match(r, line):
 					return (r,line)
 
@@ -30,6 +54,15 @@ def get_abstract(path):
 		return re.match(r, header).group(4)
 	elif r == resourceRe:
 		return None
+	else:
+		_noHeader(path)
+
+def get_resource(path):
+	r, header = get_header(path)
+	if r == resourceRe:
+		return re.match(r, header).group(1)
+	elif r == resourceWithRe:
+		return re.match(r, header).group(2)
 	else:
 		_noHeader(path)
 

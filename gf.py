@@ -1,31 +1,14 @@
 import sublime, sublime_plugin
 ##import dependencies
 import diff
-
-def is_GF_source(path):
-	if not path: return False
-	ext = splitext(path)[1]
-	return ext in ('.gf', '.gfo') and ext[1:]
-
-def gf_source(path):
-	base, ext = splitext(path)
-	if ext == '.gfo':
-		return base + '.gf'
-	else:
-		raise TypeError, "Cannot find GF source for extension %s" % ext
-
-def find_related(path):
-	absModule = get_abstract(path)
-	if not absModule: return []
-	print "Finding with module", absModule, "for file", path
-	return find_files(lambda b:b.startswith(absModule), path)
+from gfmodule import is_GF_source, get_GF_source, find_related
 
 class OpenSourceCommand(sublime_plugin.WindowCommand):
 	def is_enabled(self, files):
 		return len(files)==1 and is_GF_source(files[0]) == 'gfo'
 
 	def run(self, files):
-		self.window.open_file(gf_source(files[0]))
+		self.window.open_file(get_GF_source(files[0]))
 
 
 class OpenRelatedFilesCommand(sublime_plugin.WindowCommand):
